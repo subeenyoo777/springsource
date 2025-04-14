@@ -1,0 +1,94 @@
+04.14 월요일
+서바단 작성(택 1)
+ 1)spring framework : 웹 개발할 때 주로 사용 / 설정 작업 필요 / 
+ 2) spring boot : 서버단 작성 간편화 버전.
+(통칭해서 spring이라고 부르기도 함.)
+
+프로젝트 생성
+ 1. 빌드 툴 설정
+   build 도구 : 프로젝트 생성, 라이브러리 설정, 코드작업, 컴파일, 테스트, 패키지 작성, 배포
+   1) gradle : 
+   2) maven : maven은 xml = (html, 만들어 쓰는 tag) 기반임
+
+
+ 2. spring boot version 선택 = spring boot은 version 마다 할 수 있는지 달라지기에 버전은 중요하다.
+ 3. 언어 선택
+ 4. 패키지명 : com.example.demo(자유롭게 지정 가능인데, 기본 3개는 작성해야 함.)
+ 5. 패키징 타입 : jar(java 압축파일) | war(자바 웹 압축파일-jsp)
+ 6. 자바 버전 선택 : 부트 버전에 따라서 선택이 달라질 수 있다.
+ 7. 필요 라이브러리 선택 
+     :    Spring Web, dev tools, thymeleaf, lombok
+
+화면단(front) 작성 : html + css + javascript + java 
+    1) jsp 활용 : *.jsp
+       ▶html 코드 + java 코드 동시 작성 가능
+
+        spring boot 에서 사용하기 위해선 설정 작업 필요.
+
+       jsp 사용 안함.
+    
+    2) 탬플릿 엔진 활용 : *.html
+       ▶thymeleaf, mustache, groovy, freemaker, velovity
+          
+
+======================
+서버
+200 ok
+400 not found
+500 server error
+
+경로 임의 생성 가능
+======================
+
+스프링의 주요 개념
+ 1) IoC (Inversion of Control) : 메소드나 객체의 호출 작업을 개발자가 결정하는 것이 아니라 외부( = 스프링 컨테이너)에서 결정.
+                                (제어의 역전_메소드..아닌 컨테이너가 작업)
+
+    class A{}
+    class B{
+        A obj = new A();
+    }
+
+    컨테이너는 어느 객체를 생성할 것인지 알아야 함. ▶ @어노테이션으로 알려주기
+     - 컨테이너가 생성한 객체 : bean
+     - 싱글톤( = 객체를 하나만 생성) 방식으로 객체 생성
+     - 예) @Controller, @Service, @Component
+
+ 2) 경로 임의 생성
+
+  http://locallhost:8080/  ==> Controller 파일의 메서드와 매핑.
+
+
+  uri 설계
+  ex ) 게시판 개발
+  게시글 작성 : /board/create
+  게시글 목록 : /board/list
+  게시글 조회 : /board/read
+  게시글 수정 : /board/update
+  
+ --공통--
+@RequestMapping("/board")
+@Controller
+...
+public class BoardController{ 
+
+  --1--
+ @GetMapping("/create")
+  public String method(){
+    return "info";
+  }
+
+ http://localhost:8080/board/create 브라우저 요청 => 컨트롤러 응답 => templats 찾기(위치: templats/info/return 값 칮기)
+=> templats / info.html 작성
+
+
+ --2--
+   @GetMapping("/ update")
+  public void method(){
+  }
+
+http://localhost:8080/board/update 브라우저 요청 => 컨트롤러 응답 => templats 찾기(위치: templats/board/update )
+=> templats / board/update.html 브라우저 경로로 찾음
+}
+
+

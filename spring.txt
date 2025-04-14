@@ -1,0 +1,30 @@
+서바단 작성(택 1)
+ 1)spring framework : 웹 개발할 때 주로 사용 / 설정 작업 필요 
+ 2) spring boot : 서버단 작성 간편화 버전.
+(통칭해서 spring이라고 부르기도 함.)
+
+프로젝트 생성
+ 1. 빌드 툴 설정
+   build : 프로젝트 생성, 라이브러리 설정, 코드작업, 컴파일, 테스트, 패키지 작성, 배포
+   1) gradle : text 기반, 후발 주자(maven 개선)
+   2) maven : xml 기반, 
+
+ 2. spring boot version 선택
+ 3. 언어 선택
+ 4. 패키지명 : com.example.demo(자유롭게 지정 가능)
+ 5. 패키징 타입 : jar(java 압축파일) | war(자바 웹 압축파일-jsp)
+ 6. 자바 버전 선택 : 부트 버전에 따라서 선택이 달라질 수 있다.
+ 7. 필요 라이브러리 선택 
+    :    Spring Web, dev tools, thymeleaf, lombok
+
+화면단(front) 작성 : html + css + javascript + java 
+    1) jsp 활용 : *.jsp
+       ▶html 코드 + java 코드 동시 작성 가능
+
+        spring boot 에서 사용하기 위해선 설정 작업 필요.
+
+       jsp 사용 안함.
+    
+    2) 탬플릿 엔진 활용 : *.html
+       ▶thymeleaf, mustache, groovy, freemaker, velovity
+          
