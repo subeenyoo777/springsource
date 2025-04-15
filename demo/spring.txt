@@ -2,7 +2,7 @@
 서바단 작성(택 1)
  1)spring framework : 웹 개발할 때 주로 사용 / 설정 작업 필요 / 
  2) spring boot : 서버단 작성 간편화 버전.
-(통칭해서 spring이라고 부르기도 함.)
+  (통칭해서 spring이라고 부르기도 함.)
 
 프로젝트 생성
  1. 빌드 툴 설정
@@ -17,28 +17,28 @@
  5. 패키징 타입 : jar(java 압축파일) | war(자바 웹 압축파일-jsp)
  6. 자바 버전 선택 : 부트 버전에 따라서 선택이 달라질 수 있다.
  7. 필요 라이브러리 선택 
-     :    Spring Web, dev tools, thymeleaf, lombok
+      :    Spring Web, dev tools, thymeleaf, lombok
 
-화면단(front) 작성 : html + css + javascript + java 
-    1) jsp 활용 : *.jsp
-       ▶html 코드 + java 코드 동시 작성 가능
+  화면단(front) 작성 : html + css + javascript + java 
+      1) jsp 활용 : *.jsp
+        ▶html 코드 + java 코드 동시 작성 가능
 
-        spring boot 에서 사용하기 위해선 설정 작업 필요.
+          spring boot 에서 사용하기 위해선 설정 작업 필요.
 
-       jsp 사용 안함.
-    
-    2) 탬플릿 엔진 활용 : *.html
-       ▶thymeleaf, mustache, groovy, freemaker, velovity
-          
+        jsp 사용 안함.
+      
+      2) 탬플릿 엔진 활용 : *.html
+        ▶thymeleaf, mustache, groovy, freemaker, velovity
+            
 
-======================
-서버
-200 ok
-400 not found
-500 server error
+  ======================
+  서버
+  200 ok
+  400 not found
+  500 server error
 
-경로 임의 생성 가능
-======================
+  경로 임의 생성 가능
+  ======================
 
 스프링의 주요 개념
  1) IoC (Inversion of Control) : 메소드나 객체의 호출 작업을 개발자가 결정하는 것이 아니라 외부( = 스프링 컨테이너)에서 결정.
@@ -56,39 +56,82 @@
 
  2) 경로 임의 생성
 
-  http://locallhost:8080/  ==> Controller 파일의 메서드와 매핑.
+    http://locallhost:8080/  ==> Controller 파일의 메서드와 매핑.
+
+    uri 설계
+    ex ) 게시판 개발
+    게시글 작성 : /board/create
+    게시글 목록 : /board/list
+    게시글 조회 : /board/read
+    게시글 수정 : /board/update
+    
+  --공통--
+  @RequestMapping("/board")
+  @Controller
+  ...
+  public class BoardController{ 
+
+    --1--
+  @GetMapping("/create")
+    public String method(){
+      return "info";
+    }
+
+  http://localhost:8080/board/create 브라우저 요청 => 컨트롤러 응답 => templats 찾기(위치: templats/info/return 값 칮기)
+  => templats / info.html 작성
 
 
-  uri 설계
-  ex ) 게시판 개발
-  게시글 작성 : /board/create
-  게시글 목록 : /board/list
-  게시글 조회 : /board/read
-  게시글 수정 : /board/update
+  --2--
+    @GetMapping("/ update")
+    public void method(){
+    }
+
+  http://localhost:8080/board/update 브라우저 요청 => 컨트롤러 응답 => templats 찾기(위치: templats/board/update )
+  => templats / board/update.html 브라우저 경로로 찾음
+  }
+
+
+ 3) 내장 서버 : Tomcat(설치 후 사용 - 스프링부트를 사용한다면 내장되어 있음)
+  http://localhost:8080/ : Tomcat 서버 구동 시 기본경로
+ 
+   브라우저를 통해서 http, https 프로토콜에 응답하는 서버 : SW 웹 서버(apache, NginX)
+    WAS (Web Application Server) : 웹서버 + java 해석 => Tomcat
+
+ 4)오류발생
+  404 : 컨트롤러 경로 확인
+  405 : 컨트롤러 경로 + 매핑 방식 확인
+
+ 5) 사용자 입력값 가져오기
+  (1) 변수 이용 : 타입 지정 가능, 변수명은 form 요소의 이름과 일치
+  (2) 커맨드(DTO) 객체 이용 : (1)기능 + 
+                              커맨드 객체 사용시 장점은 template 페이지까지 입력값이 유지됨.
+  (3)HttpServletRequest 이용
+
+ 6)@ModelAttribute
+  - 별칭(일반 커맨드 객체에 별칭을 붙임)
+  - @ModelAttribute("num1") == model.addAttribute("num1", num1)
+    template 페이지에서 값을 유지하고 싶다면!
+
+7) RedirectAttributes : 컨트롤러에서 움직이는 방식이 redirect(=경로를 다시 요청)일 때 사용
+                        움직이면서 특정 값을 가지고 가고 싶을 때 사용
+  - rttr.addFlashAttribute("userid", "10")  (주소창에)>> ?userid=10
+                                            => 탬플릿 호출 시, ${param.userid}
+  - rttr.addFlashAttribute("password", "12") => 탬플릿 호출 시, ${password}  
+                                              ( : session 객체에 담는 것과 같은 방식.)
+
+
+ 8)데이터 유지하기                                               
+ - 컨트롤러에서 변수로 받아오는 경우
+
+  - login.html 입력값 ==> 컨트롤러 ==> logout.html 입력값 유지하고 싶다면?
+    : forward 방식) @ModelAttribute, Model, 커맨드 객체
+      redirect 방식) RedirectAttributes 이용 
+
+  - login.html 입력값 ==> 컨트롤러 ==> 모든 페이지에서 입력값 유지하고 싶다면?
+    :(1) session : 값을 서버쪽에 저장함. 객체형태로 담는 것도 가능.
+      httpSession 이용해 저장 > (종료시점)필요없을 시 제거
+                            or 현재 세선 유지되는 브라우져(크롬,엣쥐..종류) 종료
+     (2) cookie : 값을 클라이언트 브라우저로 전송 후 저장                       
   
- --공통--
-@RequestMapping("/board")
-@Controller
-...
-public class BoardController{ 
-
-  --1--
- @GetMapping("/create")
-  public String method(){
-    return "info";
-  }
-
- http://localhost:8080/board/create 브라우저 요청 => 컨트롤러 응답 => templats 찾기(위치: templats/info/return 값 칮기)
-=> templats / info.html 작성
-
-
- --2--
-   @GetMapping("/ update")
-  public void method(){
-  }
-
-http://localhost:8080/board/update 브라우저 요청 => 컨트롤러 응답 => templats 찾기(위치: templats/board/update )
-=> templats / board/update.html 브라우저 경로로 찾음
-}
-
-
+  
+  - login.html 입력값 ==> 컨트롤러 ==> 다른 페이지에서 입력값 소멸?

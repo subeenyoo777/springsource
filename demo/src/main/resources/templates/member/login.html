@@ -7,5 +7,30 @@
   </head>
   <body>
     <h1>Login</h1>
+    <h3 th:text="${session.name1}"></h3>
+    <form action="" method="post">
+      <div>
+        <label for="userid">아이디</label>
+        <input type="text" name="userid" id="userid" />
+      </div>
+      <div>
+        <label for="password">비밀번호</label>
+        <input type="password" name="password" id="password" />
+      </div>
+      <div>
+        <button type="submit">로그인</button>
+      </div>
+    </form>
+
+    <ul id="result">
+      <!-- 커맨드 객체명(반환 시 타입으로 선언한) 그대로 따라 쓰는데, 첫문자만 소문자로 바꾼다. -->
+      <!-- 처음에는 null값이기 때문에 "?" 필요.  -->
+      <li>아이디 : [[${loginDTO?.userid}]]</li>
+      <li>비밀번호 :[[${loginDTO?.password}]]</li>
+
+      <!-- Redirctattributes 로 가져온 값 출력 -->
+      <li>아이디 : [[${param.userid}]]</li>
+      <li>비밀번호 :[[${password}]]</li>
+    </ul>
   </body>
 </html>
