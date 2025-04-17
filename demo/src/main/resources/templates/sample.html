@@ -15,6 +15,7 @@
     <ul>
       <li>ID : <span th:text="${dto.id}"></span></li>
       <li>First : <span th:text="${dto.first}"></span></li>
+
       <li>Last : <span th:text="${dto.last}"></span></li>
       <li>regTime : <span th:text="${dto.regDateTime}"></span></li>
     </ul>
@@ -35,7 +36,11 @@
 
       <tr th:each="dto : ${list}">
         <td th:text="${dto.id}"></td>
-        <td th:text="${dto.first}"></td>
+
+        <td>
+          <a th:href="@{ex2(id=${dto.id})}" th:text="${dto.first}"></a>
+        </td>
+
         <td th:text="${dto.last}"></td>
         <td th:text="${#temporals.format(dto.regDateTime, 'yyyy-MM-dd hh:mm')}"></td>
       </tr>
@@ -107,6 +112,43 @@
         <span th:case="true" th:text="${dto.first}"></span>
         <span th:case="false" th:text="${dto.last}"></span>
       </li>
+    </ul>
+
+    <h3>웹 페이지 링크</h3>
+    <!-- 배포 : 실제 서버에 프로그램을 올리는 작업 
+    http://localhost:8080/ 로컬
+
+    http://도메인 주소/app/member/login 
+    특정 폴더 밑에 프로젝트가 배포될 수 있다. 
+
+    배포될 때도 동일한 연결을 보장해주기 위해서 
+     th:href 사용
+    
+     th:href 나 href 경로는 똑같이 표현되나
+     파라미터 보내는 방법이 달라진다.
+
+     href : /member/login?id=hong
+            /ex1?param1=data1&param2=10
+
+     th:href : /member/login(id='hong')
+              /ex1(param1='data1',param2=10)
+     
+     -->
+    <ul>
+      <li><a th:href="@{/calc}">calc</a></li>
+      <li><a th:href="@{/ex1(param1='data1',param2=10)}">ex1</a></li>
+    </ul>
+    <h3>thymeleaf 유틸리티 객체</h3>
+    <ul>
+      <li th:text="${price}"></li>
+      <li th:text="${#numbers.formatInteger(price,3,'COMMA')}"></li>
+      <li th:text="${options}"></li>
+      <li th:text="${#lists.size(options)}"></li>
+      <li th:text="${#lists.contains(options, 'AAAA')}"></li>
+      <li th:text="${now}"></li>
+      <li th:text="${#dates.format(now, 'yyyy-MM-dd')}"></li>
+      <li th:text="${title}"></li>
+      <li th:text="${#strings.replace(title,'s','<b>s</b>')}"></li>
     </ul>
     <script>
       const name = "[[${name}]]";
