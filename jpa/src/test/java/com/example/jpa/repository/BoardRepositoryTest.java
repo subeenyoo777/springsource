@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.jpa.entity.Board;
+import com.example.jpa.repository.BoardRepository;
 
 @SpringBootTest
 public class BoardRepositoryTest {
@@ -24,6 +25,7 @@ public class BoardRepositoryTest {
                     .build();
 
             boardRepository.save(board);
+
         });
     }
 

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.jpa.entity.Student;
 import com.example.jpa.entity.Student.Grade;
+import com.example.jpa.repository.StudentRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.example.jpa.entity.Memo;
+import com.example.jpa.repository.MemoRepository;
 
 @SpringBootTest
 public class MemoRepositoryTest {
@@ -26,7 +27,7 @@ public class MemoRepositoryTest {
         // Memo memo = Memo.builder().mno(1L).memoText("memoText update").build(); 오류남.
 
         Memo memo = memoRepository.findById(1L).get();
-        memo.setMemoText("memoText update");
+        memo.changeMemoText("memoText update");
         memoRepository.save(memo);
     }
 
@@ -37,6 +38,7 @@ public class MemoRepositoryTest {
     }
 
     @Test
+    // List<Memo>
     public void listTest() {
         memoRepository.findAll().forEach(memo -> System.out.println(memo));
     }

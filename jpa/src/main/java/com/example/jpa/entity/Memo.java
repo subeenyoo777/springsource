@@ -17,11 +17,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+// import lombok.Setter; //기본적으로 직접적으로 열지는 않길 권장.
 import lombok.ToString;
 
 @Getter
-@Setter
+// @Setter// 따로 메소드를 만들기 권장
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -50,4 +50,11 @@ public class Memo {
     @Column(nullable = false)
     @LastModifiedDate
     private LocalDateTime updatedDate;
+
+    // setter 대신에 만드는 메서드
+    public void changeMemoText(String memoText) {
+        this.memoText = memoText;
+
+    }
+
 }
