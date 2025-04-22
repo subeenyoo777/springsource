@@ -5,9 +5,10 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+// (modelmapper 사용하기 위한)
+@Configuration // 환경설정 파일(클래스)
 public class RootConfig {
-    @Bean
+    @Bean // springboot에서 new해서 관리하라.
 
     public ModelMapper getMappter() {
         ModelMapper modelmapper = new ModelMapper();

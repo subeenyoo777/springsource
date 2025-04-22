@@ -10,6 +10,7 @@
  4) @ManyToMany : 실제 업무 환경에서는 잘 사용되지 않음.
                   @ManyToOne 관계로 변경 후 사용
                   FetchType.LAZY 인 상태
+                   N:N 관계 ===> 1:N, N:1 로 풀어서 한다.
 
 표현이 양방향 관계일뿐, 실제로는 없으며 단방향 2개를 여는 것이다.
 데이터베이스 테이블은 외래 키 하나로 양쪽이 서로 join 가능하다. => 객체는 한쪽만 관계 설정을 하면 안됨. 주인(main)이 있어야 한다.
@@ -34,9 +35,11 @@ FetchType.EAGER : 즉시로딩
 영속성 관리
  : 양방향일 때 사용할 수 있는 개념
  : 부모 저장 시 자식 entity 도 같이 저장.
- 
+ : 영속성 상태에 있어야 entity 삽입, 삭제, 수정 가능
+  
  @OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true)
    {CascadeType.PERSIST,CascadeType.REMOVE} : 부모 저장 or 삭제 시, 자식도 같은 작업이 일어나는 상황
    orphanRemoval = true : 부모 객체에서 자식 객체(고아객체)를 제거하면, 자식객체가 제거됨.
 
 내일 이어서 실제 했던 관계들을 적용해 마트를 만들 예정
+

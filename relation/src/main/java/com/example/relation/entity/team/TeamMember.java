@@ -15,7 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 // 회원은 단 하나의 팀에 소속된다.
-@ToString(exclude = "members")
+@ToString(exclude = "team")
 @Getter
 @Setter
 @NoArgsConstructor

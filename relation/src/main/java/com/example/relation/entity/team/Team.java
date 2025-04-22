@@ -3,6 +3,7 @@ package com.example.relation.entity.team;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,6 +37,12 @@ public class Team {
     private String teamName;
 
     @Builder.Default
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private List<TeamMember> members = new ArrayList<>();
 }
+// CascadeType.ALL : 모든 작업을 부모와 함께 하겠다. 모든 Cascade 옵션을 적용합니다.
+// CascadeType.PERSIST : 엔티티를 영속화할 때, 연관된 엔티티도 함께 영속화합니다.
+// CascadeType.REMOVE : 엔티티를 제거할 때, 연관된 엔티티도 함께 제거합니다.
+// CascadeType.MERGE : 엔티티 상태를 병합할 때, 연관된 엔티티도 함께 병합합니다.
+// CascadeType.REFRESH : 부모 엔티티를 Refresh하면, 연관된 엔티티도 함께 Refresh됩니다.
+// CascadeType.DETACH : 부모 엔티티를 Detach하면, 연관된 엔티티도 함께 Detach됩니다

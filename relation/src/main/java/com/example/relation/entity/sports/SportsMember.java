@@ -5,6 +5,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
+import com.example.relation.entity.BaseEntity;
+
 // sports회원과 rocker 간 관계 = 1:1
 
 import jakarta.persistence.Entity;
@@ -25,7 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 
-public class SportsMember {
+public class SportsMember extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -107,4 +107,25 @@ public class TeamRepositoryTest {
 
     }
 
+    // --------------------------
+    // 양방항 일 때 쓸 수 있는 기능: Cascade(영속성 정의란?)
+    // => teamMemberRepository.save(member) X
+    // 해당 코드를 사용하지 않고, 자식 추가 후 부모 저장하니 자식도 들어감.
+    // --------------------------
+    @Test
+    public void insertTest3() {
+        Team team = Team.builder().teamName("team3").build();
+        TeamMember member = TeamMember.builder().userName("홍길동").team(team).build();
+        team.getMembers().add(member);
+
+        teamRepository.save(team);
+    }
+
+    @Test
+    public void deleteTest2() {
+        // 부모, 자식 둘 다 삭제됨.
+        // deleteTest()와 비교
+        teamRepository.deleteById(3L);
+
+    }
 }
