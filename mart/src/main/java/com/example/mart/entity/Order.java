@@ -67,7 +67,7 @@ public class Order {
 
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = { CascadeType.REMOVE, CascadeType.PERSIST }, orphanRemoval = true)
-    private List<OrderItem> OrderItems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
