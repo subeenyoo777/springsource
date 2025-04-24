@@ -1,4 +1,4 @@
-package com.example.todo.dto;
+package com.example.book.dto;
 
 import java.time.LocalDateTime;
 
@@ -9,23 +9,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
-public class ToDoDTO {
+public class BookDTO {
 
-    private Long id;
-
-    private String content;
-
-    private boolean completed;
-
-    private boolean importanted;
-
+    private Long code;
+    private String title;
+    private String author;
+    private int price;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
-
 }
