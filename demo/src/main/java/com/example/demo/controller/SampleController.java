@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.example.demo.dto.SampleDTO;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Log4j2

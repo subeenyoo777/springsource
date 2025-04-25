@@ -1,7 +1,6 @@
 package com.example.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 
 import com.example.jpa.entity.Board;

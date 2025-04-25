@@ -1,6 +1,5 @@
 package com.example.jpa.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,14 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.jpa.dto.MemoDTO;
-import com.example.jpa.repository.BoardRepository;
 import com.example.jpa.service.MemoService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Log4j2
 @Controller

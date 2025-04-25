@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.example.jpa.entity.Memo;
-import com.example.jpa.repository.MemoRepository;
 
 @SpringBootTest
 public class MemoRepositoryTest {
