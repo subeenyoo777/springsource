@@ -23,7 +23,8 @@ public class ToDoService {
     private final ModelMapper modelMapper;
 
     public Long create(ToDoDTO dto) {
-        ToDo todo = modelMapper.map(dto, ToDo.class);// dto -> ToDo.class로 변경 후 저장할 것
+        // dto -> ToDo.class로 변경 후 저장할 것
+        ToDo todo = modelMapper.map(dto, ToDo.class);
         return todoRepository.save(todo).getId();
     }
 

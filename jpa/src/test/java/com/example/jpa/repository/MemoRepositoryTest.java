@@ -12,6 +12,15 @@ public class MemoRepositoryTest {
     @Autowired
     private MemoRepository memoRepository;
 
+    // @Test
+    // public void queryMethodTest() {
+
+    // System.out.println(memoRepository.findByMnoLessThan());
+    // System.out.println(memoRepository.findByMnoLessThanOrderByMnoDesc(null));
+    // System.out.println(memoRepository.findByMemoTextContaining(null));
+
+    // }
+
     @Test
     public void insertTest() {
         LongStream.rangeClosed(1, 10).forEach(i -> {

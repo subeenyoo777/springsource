@@ -28,7 +28,6 @@ public class ToDo extends BaseEntity {
     // -pk, 내용,작성일,수정일,완료여부(true, false),중요도(t/f)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "TODO_ID")
     private Long id;
 

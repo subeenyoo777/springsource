@@ -70,8 +70,11 @@ public class ToDoController {
     @PostMapping("/modify")
     public String postCompleted(ToDoDTO dto, RedirectAttributes rttr) {
         log.info("수정 {}", dto);
+
+        // 서비스 호출
         Long id = toDoService.changeCompleted(dto);
 
+        // read 작업
         rttr.addAttribute("id", id);
         return "redirect:/todo/read";
     }

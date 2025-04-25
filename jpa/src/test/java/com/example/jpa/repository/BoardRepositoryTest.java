@@ -6,13 +6,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.jpa.entity.Board;
-import com.example.jpa.repository.BoardRepository;
 
 @SpringBootTest
 public class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Test
+    public void queryMethodTest() {
+        // System.out.println(boardRepository.findByWriter("user4"));
+        // [Board(bno=4, title=board Title4, content=BOARD CONTENT4, writer=user4...]
+
+        // System.out.println(boardRepository.findByTitle("board Title1"));
+        // [Board(bno=1, title=board Title1, content=BOARD CONTENT1, writer=user1]
+
+        // System.out.println(boardRepository.findByWriterStartingWith("user"));//
+        // [user%]
+        // System.out.println(boardRepository.findByWriterEndingWith("user")); //
+        // [%user]
+        System.out.println(boardRepository.findByWriterContaining("user"));//
+        // [%user%]
+
+        // System.out.println(boardRepository.findByWriterContainingAndContentContaining("5",
+        // "9"));
+        // System.out.println(boardRepository.findByWriterContainingOrContentContaining("5",
+        // "9"));
+        // System.out.println(boardRepository.findByBnoGreaterThan(5L));
+
+        // System.out.println(boardRepository.findByBnoGreaterThan(0L));
+
+        // System.out.println(boardRepository.findByBnoBetween(5L, 10L));
+    }
 
     // CRUD
     @Test

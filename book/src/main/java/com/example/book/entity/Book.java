@@ -21,12 +21,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 
-@Table(name = "BOOKBL")
+@Table(name = "BOOKTBL")
 @Entity
 public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long code;
 
     @Column(nullable = false)
