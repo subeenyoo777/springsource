@@ -2,11 +2,13 @@ package com.example.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.data.repository.query.Param;
 
 import com.example.jpa.entity.Board;
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPredicateExecutor<Board> {
 
     // // = ..WHERE B.WRITER = '~';
     // List<Board> findByWriter(String writer);
@@ -46,14 +48,21 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     // : from의 기준은 entity! db 테이블명 아님
     // ->Borad b 는 entity 기준
     // ----------------------------------------
-    @Query("select b from Board b where b.writer = ?1")
-    List<Board> findByWriter(String writer);
+    // @Query("select b from Board b where b.writer = ?1")
+    @Query("select b from Board b where b.writer = :writer")
+    // List<Board> findByWriter(String writer);
+    List<Board> findByWriter(@Param("writer") String writer);
 
     @Query("select b from Board b where b.writer like ?1%")
     List<Board> findByWriterStartingWith(String writer);
 
-    @Query("select b from Board b where b.writer like %?1%")
-    List<Board> findByWriterContaining(String writer);
+    // @Query("select b from Board b where b.writer like %?1%")
+    // List<Board> findByWriterContaining(String writer);
+
+    // entity 기준이 아닌 Object 기준으로 가지고 나옴.
+    // 왜? 두 개 이상 가지고 나오기 때문.
+    @Query("select b.title, b.writer from Board b where b.title like %?1%")
+    List<Object[]> findByTitle2(String title);
 
     // @Query("select b from Board b where b.bno > ?1%") entity 기준이 아니라
     // sql 구문형식 사용 가능(실제 sql구문... from b 같은 거 안됨)

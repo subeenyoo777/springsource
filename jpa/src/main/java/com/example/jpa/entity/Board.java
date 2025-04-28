@@ -25,7 +25,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-
 @Entity
 @EntityListeners(value = AuditingEntityListener.class)
 public class Board {
@@ -46,5 +45,4 @@ public class Board {
 
     @CreatedDate
     private LocalDateTime regdate;
-
 }
