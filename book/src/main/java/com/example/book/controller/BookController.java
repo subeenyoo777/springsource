@@ -2,6 +2,7 @@ package com.example.book.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.book.dto.BookDTO;
+import com.example.book.dto.PageRequestDTO;
+import com.example.book.dto.PageResultDTO;
 import com.example.book.service.BookService;
 
 import jakarta.validation.Valid;
@@ -27,7 +30,7 @@ public class BookController {
     private final BookService bookService; // 서비스 이용하기 위함
 
     @GetMapping("/create")
-    public void getCreate(@ModelAttribute("book") BookDTO dto) {
+    public void getCreate(@ModelAttribute("book") BookDTO dto, PageRequestDTO pageRequestDTO) {
         log.info("도서 작성 요청");
     }
 
@@ -50,18 +53,20 @@ public class BookController {
         return "redirect:/book/list";
     }
 
+    // http://localhost:8080/book/list?page=1&size=10
     @GetMapping("/list")
-    public void getList(Model model) {
-        log.info("book list 요청");
-        List<BookDTO> books = bookService.readAll();
-        model.addAttribute("books", books);
+    public void getList(PageRequestDTO pageRequestDTO, Model model) {
+        log.info("book list 요청 {}", pageRequestDTO);
+        PageResultDTO<BookDTO> pageResultDTO = bookService.readAll(pageRequestDTO);
+        model.addAttribute("result", pageResultDTO);
+
     }
 
     // http://localhost:8080/book/read?code=4
     // http://localhost:8080/book/modify?code=4
     // 둘 다 접속 할거다.
     @GetMapping({ "/read", "/modify" })
-    public void getRead(Long code, Model model) {
+    public void getRead(PageRequestDTO pageRequestDTO, Long code, Model model) {
         log.info("book get 요청 {}", code);
 
         BookDTO book = bookService.read(code);
@@ -69,7 +74,7 @@ public class BookController {
     }
 
     @PostMapping("/modify")
-    public String postModify(BookDTO dto, RedirectAttributes rttr) {
+    public String postModify(BookDTO dto, PageRequestDTO pageRequestDTO, RedirectAttributes rttr) {
         log.info("book modify 요청 {}", dto);
 
         // service 호출
@@ -77,16 +82,26 @@ public class BookController {
 
         // read 로 이동
         rttr.addAttribute("code", dto.getCode());
+        rttr.addAttribute("page", pageRequestDTO.getPage());
+        rttr.addAttribute("size", pageRequestDTO.getSize());
+        rttr.addAttribute("type", pageRequestDTO.getType());
+        rttr.addAttribute("keyword", pageRequestDTO.getKeyword());
 
         return "redirect:/book/read";
     }
 
     @PostMapping("/remove")
-    public String postRemove(Long code) {
+    public String postRemove(Long code, PageRequestDTO pageRequestDTO, RedirectAttributes rttr) {
         log.info("book remove 요청 {}", code);
 
         // 서비스 호출
         bookService.remove(code);
+
+        rttr.addAttribute("page", pageRequestDTO.getPage());
+        rttr.addAttribute("size", pageRequestDTO.getSize());
+        rttr.addAttribute("type", pageRequestDTO.getType());
+        rttr.addAttribute("keyword", pageRequestDTO.getKeyword());
+
         return "redirect:/book/list";
     }
 

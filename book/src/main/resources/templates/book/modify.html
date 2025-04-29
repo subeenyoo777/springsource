@@ -26,12 +26,21 @@
         <input type="text" class="form-control" id="price" name="price" th:value="${book.price}" />
       </div>
       <button type="submit" class="btn btn-primary">수정</button>
+      <!-- submit: 본인이 포함된 form을 서버에 보냄 -->
       <button type="button" class="btn btn-danger">삭제</button>
-      <a th:href="@{/book/list}" class="btn btn-success">목록</a>
+      <a
+        th:href="@{/book/list(page=${pageRequestDTO.page}, size=${pageRequestDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"
+        class="btn btn-success"
+        >목록</a
+      >
     </form>
 
     <form th:action="@{/book/remove}" method="post" id="actionForm">
-      <input type="hidden" name="code" th:value="${book}" />
+      <input type="hidden" name="code" th:value="${book.code}" />
+      <input type="hidden" name="page" th:value="${pageRequestDTO.page}" />
+      <input type="hidden" name="size" th:value="${pageRequestDTO.size}" />
+      <input type="hidden" name="type" th:value="${pageRequestDTO.type}" />
+      <input type="hidden" name="keyword" th:value="${pageRequestDTO.keyword}" />
     </form>
   </div>
 

@@ -1,7 +1,7 @@
 
 관계 설정 annotation(끝이 one - eager, may-lazy)
  1) @ManyToOne : 부서와 사원, 팀과 회원, 학과와 학생
-               : 정보를 가지고 나올 때 관련 있는 테이블 정보를 가지고 나옴.(left join)
+               : 정보를 가지고 나올 때 관련 있는 테이블 정보를 가지고 나옴.(left join), 처음서부터 내용을 가지고 나옴.
                  FetchType.EAGER 인 상태
  2) @OneToMany :  정보를 가지고 나올 때 관련 있는 테이블 정보를 안 가지고 나옴.
                 : FetchType.LAZY 인 상태
