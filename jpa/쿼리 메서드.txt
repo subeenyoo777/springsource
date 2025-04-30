@@ -29,3 +29,4 @@ save() :
     (2)QuerydslRepositorySupport 추상클래스      -> 추천 방식
      - 확장성 제공 
      - join 가능
+     - Sort 객체 사용 불가

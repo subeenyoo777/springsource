@@ -15,7 +15,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BaordDTO {
+public class BoardDTO {
+
+    private Long bno;
+    private String title;
+    private String content;
+    private String email;
+    private String name;
+
+    // 댓글개수
+    private Long replyCount;
 
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;

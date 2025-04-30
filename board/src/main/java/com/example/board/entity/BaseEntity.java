@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
 
+@Getter
 @MappedSuperclass // 테이블과 매핑하지 않고 자식 클래스에 entity 매핑 정보 상속
 @EnableJpaAuditing
 @EntityListeners(value = AuditingEntityListener.class)
