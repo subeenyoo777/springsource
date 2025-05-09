@@ -28,7 +28,9 @@ FetchType.EAGER : 즉시로딩
     FetchType.LAZY 상태일 때 관련있는 테이블 정보를 접근한다면
     LazyInitializationException 발생한다.
     => 해결법
- 1)@Transactional : select 구문 2개로 처리
+ 1)@Transactional : select 구문 2개로 처리...지만 권장하지 않고요
+ => left join 구문으로 처리하려면, 
+    => @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraphType.LOAD)
  2)FetchType 변경
   :  FetchType.EAGER(즉시) 관계있는 테이블 정보를 즉시 가지고 나오기 => left join
  

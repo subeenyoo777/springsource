@@ -1,0 +1,35 @@
+spring security 모듈을 적용시키면 기본적으로 현재 프로젝트에 영향을 미친다.
+
+ filter 를 통과해야 controller 로 넘어감.
+
+spring-boot-starter-security
+  현재 프로젝트는 security 설정에 의해 움직임
+  로그인 정보 없이는 모든 페이지 접근 불가(AnonymousUser; 익명사용자)
+  로그인 이후에는 인증된 사용자(Authentication User)
+  username : 페이지에서 사용하는 아이디
+
+ - 비밀번호 암호화
+    단방향 암호화 : 한번 암호화하면 원래 비밀번호는 찾을 수 없다. (양방향 암호화해야 해독 가능, 그래서 최근에는 임시 비번 발급)
+     
+ - 메소드
+ permitAll() : 권한 필요없음
+ authenticated () : 권한(= 로그인  성공 후 부여되는 권한) 필요 함
+
+   // authorize.anyRequest 어느요청이든, authenticated 막아(권한 보여줘).
+   // .httpBasic(Customizer.withDefaults()); 폼로그인 안할 시 사용,  security 가 제공하는 기본 login form 페이지
+   // hasRole: ROLE 있다면 권한 줌
+
+ - 에러 내용
+(type=Forbidden, status=403). => 권한 없음.
+
+ - 로그인 페이지
+   id 에 해당하는 요소의 이름은 반드시 user name 이어야 한다.(변경도 가능함)
+   사용자의 로그인 페이지 사용하려면   =>   .formLogin(login -> login.loginPage("/member/login").permitAll());
+   로그인 post(생성) 작업은 하지 않는다. 
+     => 시큐리티가 처리: post 작업해줄 때의 조건은 get(불러오기)을 제외한 모든 방법(post,put,delete)은 csrf 토큰을 요구한다. 
+         CSRF 토큰 사용하는 이유는?: csrf 공격을 막기 위함
+           ->(thymeleaf 사용할 때)action에 경로 설정하면 csrf 토큰을 넣어준다.
+               우리 교육과정에서 csrf 토큰을 넣어주는건  thymeleaf에서 security로 post.put,delete할 때임.
+
+   로그인 성공 후 어디로 이동할지 경로 지정하지 않으면 이전 url로 되돌아간다.
+  로그인 처리를 위한 Service 작성해야 한다 : UserDetailsService 구현
