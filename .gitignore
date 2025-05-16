@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+upload/
+
 ### STS ###
 .apt_generated
 .classpath
@@ -31,3 +33,5 @@ build/
 
 ### VS Code ###
 .vscode/
+security/src/main/resources/application-oatuh.properties
+security/src/main/resources/application-oauth.properties

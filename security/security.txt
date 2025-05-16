@@ -33,3 +33,27 @@ spring-boot-starter-security
 
    로그인 성공 후 어디로 이동할지 경로 지정하지 않으면 이전 url로 되돌아간다.
   로그인 처리를 위한 Service 작성해야 한다 : UserDetailsService 구현
+
+ - 403 에러
+ csrf 값 확인 : form action 값 적었는지 확인
+                axios , fetch => header 에 값 추가했는지 확인
+
+ - thymeleaf security 표현하기
+
+  sec:authorize="hasRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')"
+
+    sec:authorize="isAuthenticated()
+    th:value = "${#authentication.principal.name}"
+    sec:authorize="hasRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')"
+    hasAnyRole() : Role 여러 개 중에 하나만 만족한다면
+    hasRole() : Role 하나만 작성하고 그 Role 만족한다면 
+
+
+ - 작성한 경로를 제외하고는 모두 로그인 필요함.(컨트롤러 갈 수 없음)
+    uthorizeHttpRequests(authorize -> authorize.requestMatchers("/assets/**", "/css/**", "/js/**", "/img/**").permitAll()
+    .anyRequest().authenticated())
+
+
+ - .anyRequest().permitAll() : 컨트롤러 메서드 단에서 제어해주세요.
+        @PreAuthorize("isAuthenticated()")
+
